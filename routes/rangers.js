@@ -1,23 +1,26 @@
+'use strict';
+
 const express = require('express'),
     router = express.Router();
 
 const rangersModel = require('../db');
 
 router.get('/', (req, res) => {
+    console.log(rangersModel);
     res.render('template', {
         locals: {
             title: 'List of Power Rangers',
             data: rangersModel
         },
         partials: {
-            body: 'partials/ranger-list',
+            body: 'partials/ranger-list'
         },
     });
 });
 
 router.get('/:slug', (req, res) => {
     const { slug } = req.params;
-    const ranger = rangersModel.find(ranger) => {
+    const ranger = rangersModel.find((ranger) => {
         if (ranger.slug === slug) {
             return ranger;
         }
@@ -29,12 +32,14 @@ router.get('/:slug', (req, res) => {
                 ranger
             },
             partials: {
-                body: 'partials/ranger-details',
+                body: 'partials/ranger-details'
             },
         });
     } else {
         res.status(404).send(`No Ranger found that matches slug, ${slug}`);
     }
-
+    
 });
 
+
+module.exports = router;
